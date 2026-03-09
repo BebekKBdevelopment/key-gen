@@ -1,32 +1,50 @@
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0b0c1e;
+    color: white;
+    overflow: hidden;
 }
 
 .container {
-  text-align: center;
-  background: rgba(0,0,0,0.6);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px #000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(20,20,40,0.85);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00f;
 }
 
-button, .btn {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background: #ff4b2b;
-  color: #fff;
-  cursor: pointer;
-  text-decoration: none;
+button {
+    margin: 10px;
+    padding: 12px 24px;
+    background: #1e1f45;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-button:hover, .btn:hover {
-  background: #ff416c;
+button:hover {
+    background: #3a3b6b;
+}
+
+#status {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #0ff;
+}
+
+/* Stjärnor canvas */
+#starCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
