@@ -1,35 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
-<title>Key Generator</title>
+<meta charset="UTF-8">
+<title>GilbertHUB Key Generator</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
-<body style="background:black;color:white;text-align:center;font-family:Arial">
-
-<h1>Key Generator</h1>
-
-<button onclick="generateKey()">Generate Key</button>
-
-<p id="key"></p>
+<body>
+  <div class="container">
+    <h1>GilbertHUB Key Generator</h1>
+    <p id="status">Laddar...</p>
+    <button id="generateBtn">Generera Key</button>
+    <a href="https://discord.gg/dittserver" target="_blank" class="btn">Join Discord</a>
+    <a href="https://linkvertise.com/dinlink" target="_blank" class="btn">Copy Key Link</a>
+  </div>
 
 <script>
+const KEY_JSON_URL = "https://raw.githubusercontent.com/BebekKBdevelopment/key-gen/main/keys.json";
 
-function generateKey(){
-
-let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-let key="KEY-"
-
-for(let i=0;i<10;i++){
-
-key+=chars[Math.floor(Math.random()*chars.length)]
-
+let hwid = localStorage.getItem("hwid");
+if(!hwid){
+  hwid = Math.random().toString(36).substr(2, 9);
+  localStorage.setItem("hwid", hwid);
 }
 
-document.getElementById("key").innerText=key
+async function checkKey() {
+  const res = await fetch(KEY_JSON_URL);
+  const data = await res.json();
 
+  for (let key in data) {
+    if (data[key].hwid === hwid) {
+      const remaining = data[key].expire - Math.floor(Date.now()/1000);
+      if (remaining > 0) {
+        document.getElementById("status").innerText = `Du har redan en key: ${key}\nGiltig i: ${Math.floor(remaining/3600)} timmar och ${Math.floor((remaining%3600)/60)} minuter`;
+        return;
+      }
+    }
+  }
+
+  document.getElementById("status").innerText = "Du har ingen key. Tryck på 'Generera Key' för att få en key!";
 }
 
+function generateKey() {
+  const key = "GHB-" + Math.random().toString(36).substr(2, 8).toUpperCase();
+  const expire = Math.floor(Date.now()/1000) + 86400; // 24h
+
+  // OBS: Kan ej skriva till GitHub raw → för demo sparar vi bara i localStorage
+  localStorage.setItem("currentKey", key);
+  localStorage.setItem("expire", expire);
+
+  document.getElementById("status").innerText = `Din key: ${key}\nGiltig i 24 timmar`;
+}
+
+document.getElementById("generateBtn").addEventListener("click", generateKey);
+
+checkKey();
 </script>
-
 </body>
 </html>
