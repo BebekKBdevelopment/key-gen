@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Key Generator</title>
+<style>
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:#1a1a1a;
+padding:40px;
+border-radius:12px;
+text-align:center;
+}
+
+button{
+background:#5865f2;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Key Generator</h1>
+
+<button onclick="generateKey()">Generate Key</button>
+
+<p id="key"></p>
+
+</div>
+
+<script>
+
+function generateKey(){
+
+let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+let key="KEY-"
+
+for(let i=0;i<10;i++){
+
+key+=chars[Math.floor(Math.random()*chars.length)]
+
+}
+
+document.getElementById("key").innerText=key
+
+}
+
+</script>
+
+</body>
+</html>
